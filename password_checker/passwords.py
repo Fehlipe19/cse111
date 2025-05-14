@@ -1,3 +1,5 @@
+#For the creative requirement, I have added a counter that shows the user how many passwords they have checked.
+
 LOWER=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UPPER=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 DIGITS=["0","1","2","3","4","5","6","7","8","9"]
@@ -9,6 +11,7 @@ def main():
     """
     
     password = "a"
+    count = 0
 
     while password.lower() != "q":
         password = input("Enter password: ").strip()
@@ -17,6 +20,8 @@ def main():
             break
         else:
             print(f"{password_strength(password)}")
+            count += 1
+            print(f"You have checked {count} passwords.")
     
 
 def word_in_file(word, filename, case_sensitive=False):
@@ -26,9 +31,6 @@ def word_in_file(word, filename, case_sensitive=False):
     with open(filename, "r", encoding="utf-8") as password_file:
         password_list = password_file.readlines()
         passwords = [s.replace("\n", "") for s in password_list]
-        # if not case_sensitive:
-        #     word = word.lower()
-
         if word in passwords and case_sensitive:
             return True
         elif word in passwords and not case_sensitive:
