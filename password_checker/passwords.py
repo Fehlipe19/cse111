@@ -20,6 +20,8 @@ def main():
             word_in_file(password, "password_checker/wordlist.txt", False)
             word_complexity(password)
             password_strength(password)
+
+            print(f"Password strength: {password_strength(password)}")
     
 
 def word_in_file(word, filename, case_sensitive=False):
@@ -74,12 +76,13 @@ def password_strength(word, min_length=10, strong_length=16):
     """
     Calculate password strength.
     """
+    strength = word_complexity(word)
     if len(word) < min_length:
         print(f"Password is too short and is not secure.")
-        return 1
+        strength = 1
+        return strength
     elif len(word) < strong_length:
-        print(f"Password is average in length.")
-        return 2
+        return strength + 1
     else:
         print(f"Password is long, length trumps complexity. This is a good password.")
         return 5
