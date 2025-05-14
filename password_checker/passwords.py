@@ -10,12 +10,13 @@ def main():
     
     stop = "a"
 
+
     while stop != "quit":
         stop = input("Enter 'quit' to exit or 'continue' to check another password: ").strip().lower()
         if stop == "continue":
             password = input("Enter a password to check: ").strip()
-            word_in_file(password, "toppasswords.txt", True)
-            word_in_file(password, "wordlist.txt", False)
+            word_in_file(password, "password_checker/toppasswords.txt", True)
+            word_in_file(password, "password_checker/wordlist.txt", False)
             word_has_character(password, LOWER)
             word_has_character(password, UPPER)
             word_has_character(password, DIGITS)
@@ -36,7 +37,6 @@ def word_in_file(word, filename, case_sensitive):
     with open(filename, "r", encoding="utf-8") as password_file:
         passwords = password_file.readlines()
         if not case_sensitive:
-            passwords = passwords.lower()
             word = word.lower()
 
         if word in passwords and case_sensitive:
@@ -63,8 +63,8 @@ def word_has_character(word, character_list):
 def word_complexity(word):
     pass
 
-def password_strength(password, min_length, strong_length):
-    pass
+def password_strength(word, min_length, strong_length):
+    print(f"{word}")
 
 
 if __name__ == "__main__":
