@@ -81,9 +81,8 @@ def password_strength(word, min_length=10, strong_length=16):
         print(f"Password is average in length.")
         return 2
     else:
+        print(f"Password is long, length trumps complexity. This is a good password.")
         return 5
-
-
 
 if __name__ == "__main__":
     main()
