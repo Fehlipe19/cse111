@@ -8,29 +8,21 @@ def main():
     The main function of the program.
     """
     
-    stop = "a"
+    password = "a"
 
-
-    while stop != "quit":
-        stop = input("Enter 'quit' to exit or 'check' to check another password: ").strip().lower()
-        if stop == "continue":
-            password = input("Enter a password to check: ").strip()
-            word_in_file(password, "password_checker/toppasswords.txt", True)
-            word_in_file(password, "password_checker/wordlist.txt", False)
-            word_has_character(password, LOWER)
-            word_has_character(password, UPPER)
-            word_has_character(password, DIGITS)
-            word_has_character(password, SPECIAL)
-            word_complexity(password)
-            password_strength(password, 10, 15)
-        elif stop == "quit":
+    while password.lower() != "q":
+        password = input("Enter password: ").strip().lower()
+        if password.lower() == "q":
             print("Exiting the program.")
             break
         else:
-            print("Invalid input. Please enter 'quit' or 'continue'.")
+            word_in_file(password, "password_checker/toppasswords.txt", True)
+            word_in_file(password, "password_checker/wordlist.txt", False)
+            word_complexity(password)
+            password_strength(password)
     
 
-def word_in_file(word, filename, case_sensitive):
+def word_in_file(word, filename, case_sensitive=False):
     """
     Check if password is a common password.
     """
@@ -56,15 +48,41 @@ def word_has_character(word, character_list):
     character = list(word)
     for char in character:
         if char in character_list:
-            return 1
+            return True
     else:
-        return 0
+        return False
     
 def word_complexity(word):
-    pass
+    """
+    Calculates complexity value of password.
+    """
+    complexity_rating = 0
 
-def password_strength(word, min_length, strong_length):
-    print(f"{word}")
+    if word_has_character(word, LOWER):
+        complexity_rating += 1
+    if word_has_character(word, UPPER):
+        complexity_rating += 1
+    if word_has_character(word, DIGITS):
+        complexity_rating += 1
+    if word_has_character(word, SPECIAL):
+        complexity_rating += 1
+
+    return complexity_rating
+
+
+def password_strength(word, min_length=10, strong_length=16):
+    """
+    Calculate password strength.
+    """
+    if len(word) < min_length:
+        print(f"Password is too short and is not secure.")
+        return 1
+    elif len(word) < strong_length:
+        print(f"Password is average in length.")
+        return 2
+    else:
+        return 5
+
 
 
 if __name__ == "__main__":
