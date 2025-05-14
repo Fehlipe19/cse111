@@ -11,7 +11,7 @@ def main():
     password = "a"
 
     while password.lower() != "q":
-        password = input("Enter password: ").strip().lower()
+        password = input("Enter password: ").strip()
         if password.lower() == "q":
             print("Exiting the program.")
             break
@@ -71,7 +71,6 @@ def password_strength(password, min_length=10, strong_length=16):
     Calculate password strength.
     """
     strength = word_complexity(password)
-    print(strength)
     is_common_password  = word_in_file(password, "password_checker/toppasswords.txt", True)
     is_common_word = word_in_file(password, "password_checker/wordlist.txt")
 
