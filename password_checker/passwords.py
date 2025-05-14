@@ -15,13 +15,13 @@ def main():
         if stop == "continue":
             password = input("Enter a password to check: ").strip()
             word_in_file(password, "toppasswords.txt", True)
+            word_in_file(password, "wordlist.txt", False)
             word_has_character(password, LOWER)
             word_has_character(password, UPPER)
             word_has_character(password, DIGITS)
             word_has_character(password, SPECIAL)
             word_complexity(password)
             password_strength(password, 10, 15)
-
         elif stop == "quit":
             print("Exiting the program.")
             break
@@ -33,10 +33,21 @@ def word_in_file(word, filename, case_sensitive):
     """
     Check if password is a common password.
     """
-    with open("passwords.txt", "r", encoding="utf-8") as password_file:
+    with open(filename, "r", encoding="utf-8") as password_file:
         passwords = password_file.readlines()
+        if not case_sensitive:
+            passwords = passwords.lower()
+            word = word.lower()
 
-    pass
+        if word in passwords and case_sensitive:
+            print(f"{word} is a commonly used password and is not secure.")
+            return 0
+        elif word in passwords and not case_sensitive:
+            print(f"{word} is a dictionary word and is not secure.")
+            return 0
+        else:
+            return 1
+    
 
 def word_has_character(word, character_list):
     pass
