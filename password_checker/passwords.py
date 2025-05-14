@@ -16,9 +16,6 @@ def main():
             print("Exiting the program.")
             break
         else:
-            word_in_file(password, "password_checker/toppasswords.txt", True)
-            word_in_file(password, "password_checker/wordlist.txt", False)
-            word_complexity(password)
             print(f"{password_strength(password)}")
     
 
@@ -27,15 +24,14 @@ def word_in_file(word, filename, case_sensitive=False):
     Check if password is a common password.
     """
     with open(filename, "r", encoding="utf-8") as password_file:
-        passwords = password_file.readlines()
-        if not case_sensitive:
-            word = word.lower()
+        password_list = password_file.readlines()
+        passwords = [s.replace("\n", "") for s in password_list]
+        # if not case_sensitive:
+        #     word = word.lower()
 
         if word in passwords and case_sensitive:
-            print(f"{word} is a commonly used password and is not secure.")
             return True
         elif word in passwords and not case_sensitive:
-            print(f"{word} is a dictionary word and is not secure.")
             return True
         else:
             return False
@@ -70,19 +66,29 @@ def word_complexity(word):
     return complexity_rating
 
 
-def password_strength(word, min_length=10, strong_length=16):
+def password_strength(password, min_length=10, strong_length=16):
     """
     Calculate password strength.
     """
-    strength = word_complexity(word)
-    if len(word) < min_length:
+    strength = word_complexity(password)
+    print(strength)
+    is_common_password  = word_in_file(password, "password_checker/toppasswords.txt", True)
+    is_common_word = word_in_file(password, "password_checker/wordlist.txt")
+
+    if is_common_password:
+        print(f"Password is a commonly used password and is not secure.")
+        return 0
+    elif is_common_word:
+        print(f"Password is a dictionary word and is not secure.")
+        return 0
+    elif len(password) < min_length:
         print(f"Password is too short and is not secure.")
         strength = 1
         return strength
-    elif len(word) < strong_length:
+    elif len(password) < strong_length:
         return strength + 1
     else:
-        print(f"Password is long, length trumps complexity. This is a good password.")
+        print(f"Password is long, length trumps complexity this is a good password.")
         return 5
 
 if __name__ == "__main__":
