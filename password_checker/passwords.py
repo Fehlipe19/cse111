@@ -46,12 +46,20 @@ def word_in_file(word, filename, case_sensitive):
             print(f"{word} is a dictionary word and is not secure.")
             return 0
         else:
-            return 1
+            return
     
 
 def word_has_character(word, character_list):
-    pass
-
+    """
+    Check if password contains a specific character.
+    """
+    character = list(word)
+    for char in character:
+        if char in character_list:
+            return 1
+    else:
+        return 0
+    
 def word_complexity(word):
     pass
 
