@@ -19,9 +19,7 @@ def main():
             word_in_file(password, "password_checker/toppasswords.txt", True)
             word_in_file(password, "password_checker/wordlist.txt", False)
             word_complexity(password)
-            password_strength(password)
-
-            print(f"Password strength: {password_strength(password)}")
+            print(f"{password_strength(password)}")
     
 
 def word_in_file(word, filename, case_sensitive=False):
@@ -35,12 +33,12 @@ def word_in_file(word, filename, case_sensitive=False):
 
         if word in passwords and case_sensitive:
             print(f"{word} is a commonly used password and is not secure.")
-            return 0
+            return True
         elif word in passwords and not case_sensitive:
             print(f"{word} is a dictionary word and is not secure.")
-            return 0
+            return True
         else:
-            return 1
+            return False
     
 
 def word_has_character(word, character_list):
