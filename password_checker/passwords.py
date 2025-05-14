@@ -38,7 +38,7 @@ def word_in_file(word, filename, case_sensitive=False):
             print(f"{word} is a dictionary word and is not secure.")
             return 0
         else:
-            return
+            return 1
     
 
 def word_has_character(word, character_list):
