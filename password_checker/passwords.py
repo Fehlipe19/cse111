@@ -12,7 +12,7 @@ def main():
 
 
     while stop != "quit":
-        stop = input("Enter 'quit' to exit or 'continue' to check another password: ").strip().lower()
+        stop = input("Enter 'quit' to exit or 'check' to check another password: ").strip().lower()
         if stop == "continue":
             password = input("Enter a password to check: ").strip()
             word_in_file(password, "password_checker/toppasswords.txt", True)
