@@ -31,9 +31,12 @@ def word_in_file(word, filename, case_sensitive=False):
     with open(filename, "r", encoding="utf-8") as password_file:
         password_list = password_file.readlines()
         passwords = [s.replace("\n", "") for s in password_list]
-        if word in passwords and case_sensitive:
-            return True
-        elif word in passwords and not case_sensitive:
+        print(word)
+        if not case_sensitive:
+            word = word.lower()
+            print(word)
+        
+        if word in passwords:
             return True
         else:
             return False
